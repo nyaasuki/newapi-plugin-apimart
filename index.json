@@ -1,0 +1,97 @@
+{
+  "indexVersion": 1,
+  "name": "APIMart Plugins for New API",
+  "plugins": [
+    {
+      "key": "apimart",
+      "name": "APIMart",
+      "icon": "text:AM",
+      "website": "https://apimart.ai",
+      "description": {
+        "en": "APIMart GPT-Image-2.5 image generation and editing, billed by tokens",
+        "zh": "APIMart GPT-Image-2.5 图片生成与编辑，按 token 计费"
+      },
+      "routes": null,
+      "protocols": [
+        {
+          "name": "openai_image"
+        }
+      ],
+      "usageSchema": {
+        "input_tokens": {
+          "type": "number",
+          "unit": "token",
+          "description": {
+            "en": "Input token unit price",
+            "zh": "输入 token 单价"
+          }
+        },
+        "output_tokens": {
+          "type": "number",
+          "unit": "token",
+          "description": {
+            "en": "Output image token unit price",
+            "zh": "输出图片 token 单价"
+          }
+        }
+      },
+      "usageExamples": [
+        {
+          "label": "1:1 · 1K · low",
+          "facts": {
+            "input_tokens": 16,
+            "output_tokens": 196
+          }
+        },
+        {
+          "label": "1:1 · 1K · medium",
+          "facts": {
+            "input_tokens": 16,
+            "output_tokens": 439
+          }
+        },
+        {
+          "label": "1:1 · 1K · high",
+          "facts": {
+            "input_tokens": 16,
+            "output_tokens": 1756
+          }
+        },
+        {
+          "label": "16:9 · 2K · high",
+          "facts": {
+            "input_tokens": 16,
+            "output_tokens": 1413
+          }
+        },
+        {
+          "label": "1:1 · 4K · max",
+          "facts": {
+            "input_tokens": 16,
+            "output_tokens": 23719
+          }
+        }
+      ],
+      "usageProfiles": null,
+      "models": [
+        "gpt-image-2.5-flare",
+        "gpt-image-2.5-sunburst"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "path": "plugins/tasks/apimart/1.0.0/plugin.js",
+          "sha256": "764de18cae44ec650a9718895be04914f84c739694a152f4f35914b65a5bb47a",
+          "minApiVersion": 1,
+          "kind": "task",
+          "allowedHosts": [
+            "upload.apimart.ai"
+          ],
+          "baseUrl": "https://api.apimart.ai",
+          "auth": "api_key"
+        }
+      ]
+    }
+  ]
+}

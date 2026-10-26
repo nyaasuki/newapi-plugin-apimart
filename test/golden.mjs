@@ -7,7 +7,7 @@ import path from "node:path";
 
 globalThis.utils = { unixNow: () => 1780000000, uuid: () => "uuid" };
 const root = path.resolve(import.meta.dirname, "..");
-const plugin = await import(pathToFileURL(path.join(root, "plugin.js")).href);
+const plugin = await import(pathToFileURL(path.join(root, "plugins/tasks/apimart/1.0.0/plugin.js")).href);
 const { cases } = JSON.parse(readFileSync(path.join(root, "golden.json"), "utf8"));
 
 let passed = 0;

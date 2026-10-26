@@ -17,15 +17,29 @@ A [New API](https://github.com/QuantumNous/new-api) task plugin that connects AP
 
 ## 安装
 
-1. 用 Root 账号登录 New API，打开「任务插件」（`/task-plugins`），打开顶部总开关。
-2. 选择「导入」，填入插件地址：
+用 Root 账号登录 New API，打开「任务插件」（`/task-plugins`），打开顶部总开关。然后任选一种方式：
 
-   ```
-   https://raw.githubusercontent.com/<OWNER>/<REPO>/main/plugin.js
-   ```
+**方式一：添加为市场源（推荐，之后可在市场里看到新版本）**
 
-   也可以下载 `plugin.js` 后上传本地文件或粘贴源码。安装前请自行检查源码。
-3. 启用插件。
+在「市场源」里点「添加源」，源名称随意，索引 URL 填：
+
+```
+https://raw.githubusercontent.com/<OWNER>/<REPO>/main/index.json
+```
+
+保存后在插件市场找到 APIMart 安装。市场安装会校验 `index.json` 中的 sha256。
+
+**方式二：直接导入单个插件**
+
+选择导入，填插件地址：
+
+```
+https://raw.githubusercontent.com/<OWNER>/<REPO>/main/plugins/tasks/apimart/1.0.0/plugin.js
+```
+
+也可以下载 `plugin.js` 后上传本地文件或粘贴源码。
+
+无论哪种方式，安装前请自行检查源码，然后启用插件。
 
 ## 配置渠道
 
@@ -106,13 +120,17 @@ curl https://your-newapi.example/v1/tasks/<task_id>/artifacts -H "Authorization:
 ## 开发与测试
 
 ```bash
-node test/run.mjs      # 各钩子的本地测试
-node test/golden.mjs   # 用本地脚本回放 golden.json
+node test/run.mjs                   # 各钩子的本地测试
+node test/golden.mjs                # 用本地脚本回放 golden.json
+node tools/build-index.mjs          # 修改插件后重新生成 index.json（含 sha256）
+node tools/build-index.mjs --check  # 检查 index.json 是否最新
 
 # 在装有 New API 可执行文件的机器上，用官方 CLI 校验：
-new-api plugin lint plugin.js
-new-api plugin test plugin.js --fixture golden.json
+new-api plugin lint plugins/tasks/apimart/1.0.0/plugin.js
+new-api plugin test plugins/tasks/apimart/1.0.0/plugin.js --fixture golden.json
 ```
+
+已发布的版本目录不要再修改（`index.json` 里的 sha256 会对不上）。改动请新建版本目录，如 `plugins/tasks/apimart/1.0.1/`，同步修改 `meta.version` 并附上 `CHANGELOG.md`，再重新生成索引。
 
 ## License
 
