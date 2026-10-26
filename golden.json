@@ -10,62 +10,306 @@
           "baseUrl": "https://api.apimart.ai",
           "apiKey": "example-key",
           "authHeader": "Bearer example-key",
-          "upstream": { "kind": "vendor" },
-          "requestBody": { "model": "gpt-image-2.5-flare", "prompt": "A quiet garden", "size": "1:1", "quality": "medium" }
+          "upstream": {
+            "kind": "vendor"
+          },
+          "requestBody": {
+            "model": "gpt-image-2.5-flare",
+            "prompt": "A quiet garden",
+            "size": "1:1",
+            "quality": "medium"
+          }
         }
       ],
       "expected": {
         "url": "https://api.apimart.ai/v1/images/generations",
         "method": "POST",
-        "headers": { "Authorization": "Bearer example-key", "Content-Type": "application/json", "Accept": "application/json" },
-        "body": { "model": "gpt-image-2.5-flare", "prompt": "A quiet garden", "size": "1:1", "quality": "medium" }
+        "headers": {
+          "Authorization": "Bearer example-key",
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        "body": {
+          "model": "gpt-image-2.5-flare",
+          "prompt": "A quiet garden",
+          "size": "1:1",
+          "quality": "medium"
+        }
+      }
+    },
+    {
+      "name": "per-image model maps OpenAI pixel size to ratio and tier",
+      "hook": "buildSubmitRequest",
+      "args": [
+        {
+          "model": "seedream-4.0",
+          "upstreamModel": "seedream-4.0",
+          "baseUrl": "https://api.apimart.ai",
+          "apiKey": "example-key",
+          "authHeader": "Bearer example-key",
+          "upstream": {
+            "kind": "vendor"
+          },
+          "requestBody": {
+            "model": "seedream-4.0",
+            "prompt": "A quiet garden",
+            "size": "4096x4096",
+            "watermark": false,
+            "quality": "hd"
+          }
+        }
+      ],
+      "expected": {
+        "url": "https://api.apimart.ai/v1/images/generations",
+        "method": "POST",
+        "headers": {
+          "Authorization": "Bearer example-key",
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        "body": {
+          "model": "seedream-4.0",
+          "prompt": "A quiet garden",
+          "size": "1:1",
+          "resolution": "4K",
+          "watermark": false
+        }
       }
     },
     {
       "name": "reject an empty prompt",
       "hook": "buildSubmitRequest",
-      "args": [{ "model": "gpt-image-2.5-flare", "upstreamModel": "gpt-image-2.5-flare", "baseUrl": "https://api.apimart.ai", "authHeader": "Bearer k", "requestBody": { "prompt": " " } }],
+      "args": [
+        {
+          "model": "gpt-image-2.5-flare",
+          "upstreamModel": "gpt-image-2.5-flare",
+          "baseUrl": "https://api.apimart.ai",
+          "authHeader": "Bearer k",
+          "requestBody": {
+            "prompt": " "
+          }
+        }
+      ],
       "expectedError": "prompt is required"
     },
     {
       "name": "read the task id from data[0]",
       "hook": "parseSubmitResponse",
-      "args": [{}, { "statusCode": 200, "headers": {}, "body": { "code": 200, "data": [{ "status": "submitted", "task_id": "task_01K" }] } }],
-      "expected": { "taskId": "task_01K", "taskData": { "code": 200, "data": [{ "status": "submitted", "task_id": "task_01K" }] } }
+      "args": [
+        {},
+        {
+          "statusCode": 200,
+          "headers": {},
+          "body": {
+            "code": 200,
+            "data": [
+              {
+                "status": "submitted",
+                "task_id": "task_01K"
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "taskId": "task_01K",
+        "taskData": {
+          "code": 200,
+          "data": [
+            {
+              "status": "submitted",
+              "task_id": "task_01K"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "read the task id from a 202 data object",
+      "hook": "parseSubmitResponse",
+      "args": [
+        {},
+        {
+          "statusCode": 202,
+          "headers": {},
+          "body": {
+            "code": 202,
+            "request_id": "r",
+            "data": {
+              "id": "task_02",
+              "object": "generation.task",
+              "status": "pending",
+              "progress": 0,
+              "poll_url": "/v1/tasks/task_02"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "taskId": "task_02",
+        "taskData": {
+          "code": 202,
+          "request_id": "r",
+          "data": {
+            "id": "task_02",
+            "object": "generation.task",
+            "status": "pending",
+            "progress": 0,
+            "poll_url": "/v1/tasks/task_02"
+          }
+        }
+      }
     },
     {
       "name": "query the task endpoint",
       "hook": "buildQueryRequest",
-      "args": [{ "taskId": "task_01K", "baseUrl": "https://api.apimart.ai", "authHeader": "Bearer k" }],
-      "expected": { "url": "https://api.apimart.ai/v1/tasks/task_01K", "method": "GET", "headers": { "Authorization": "Bearer k", "Accept": "application/json" } }
+      "args": [
+        {
+          "taskId": "task_01K",
+          "baseUrl": "https://api.apimart.ai",
+          "authHeader": "Bearer k"
+        }
+      ],
+      "expected": {
+        "url": "https://api.apimart.ai/v1/tasks/task_01K",
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer k",
+          "Accept": "application/json"
+        }
+      }
     },
     {
       "name": "processing maps to in progress",
       "hook": "parseTaskResult",
-      "args": [{}, { "code": 200, "data": { "status": "processing", "progress": 40 } }, { "status": 200, "headers": {} }],
-      "expected": { "status": "IN_PROGRESS", "progress": "40%" }
+      "args": [
+        {},
+        {
+          "code": 200,
+          "data": {
+            "status": "processing",
+            "progress": 40
+          }
+        },
+        {
+          "status": 200,
+          "headers": {}
+        }
+      ],
+      "expected": {
+        "status": "IN_PROGRESS",
+        "progress": "40%"
+      }
     },
     {
       "name": "failed task carries the reason",
       "hook": "parseTaskResult",
-      "args": [{}, { "code": 200, "data": { "status": "failed", "error": { "message": "content blocked" } } }, { "status": 200, "headers": {} }],
-      "expected": { "status": "FAILURE", "progress": "100%", "reason": "content blocked" }
+      "args": [
+        {},
+        {
+          "code": 200,
+          "data": {
+            "status": "failed",
+            "error": {
+              "message": "content blocked"
+            }
+          }
+        },
+        {
+          "status": 200,
+          "headers": {}
+        }
+      ],
+      "expected": {
+        "status": "FAILURE",
+        "progress": "100%",
+        "reason": "content blocked"
+      }
     },
     {
       "name": "unknown status is not in progress",
       "hook": "parseTaskResult",
-      "args": [{}, { "code": 200, "data": { "status": "unexpected" } }, { "status": 200, "headers": {} }],
-      "expected": { "status": "UNKNOWN", "reason": "unrecognized APIMart task status: unexpected" }
+      "args": [
+        {},
+        {
+          "code": 200,
+          "data": {
+            "status": "unexpected"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {}
+        }
+      ],
+      "expected": {
+        "status": "UNKNOWN",
+        "reason": "unrecognized APIMart task status: unexpected"
+      }
     },
     {
       "name": "settle on reported token usage",
       "hook": "extractUsageOnComplete",
       "args": [
         {},
-        { "status": "SUCCESS" },
-        { "code": 200, "data": { "status": "completed", "usage": { "input_tokens": 16, "output_tokens": 439, "total_tokens": 455 } } }
+        {
+          "status": "SUCCESS"
+        },
+        {
+          "code": 200,
+          "data": {
+            "status": "completed",
+            "usage": {
+              "input_tokens": 16,
+              "output_tokens": 439,
+              "total_tokens": 455
+            }
+          }
+        }
       ],
-      "expected": { "input_tokens": 16, "output_tokens": 439 }
+      "expected": {
+        "input_tokens": 16,
+        "output_tokens": 439
+      }
+    },
+    {
+      "name": "settle a per-image model on delivered images",
+      "hook": "extractUsageOnComplete",
+      "args": [
+        {
+          "model": "qwen-image-3.0",
+          "upstreamModel": "qwen-image-3.0",
+          "state": {
+            "facts": {
+              "image_count": 3,
+              "resolution": "2k"
+            }
+          }
+        },
+        {
+          "status": "SUCCESS"
+        },
+        {
+          "code": 200,
+          "data": {
+            "status": "completed",
+            "result": {
+              "images": [
+                {
+                  "url": [
+                    "https://upload.apimart.ai/a.png",
+                    "https://upload.apimart.ai/b.png"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "expected": {
+        "image_count": 2,
+        "resolution": "2k"
+      }
     }
   ]
 }

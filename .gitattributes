@@ -1,0 +1,3 @@
+# index.json pins the sha256 of each plugin.js; keep LF so local checkouts hash
+# the same bytes GitHub serves.
+* text=auto eol=lf

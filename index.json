@@ -8,8 +8,8 @@
       "icon": "text:AM",
       "website": "https://apimart.ai",
       "description": {
-        "en": "APIMart GPT-Image-2.5 image generation and editing, billed by tokens",
-        "zh": "APIMart GPT-Image-2.5 图片生成与编辑，按 token 计费"
+        "en": "APIMart image models: GPT-Image, Nano Banana, Imagen, Seedream, FLUX, Qwen, Wan, Grok Imagine and more",
+        "zh": "APIMart 图像模型：GPT-Image、Nano Banana、Imagen、Seedream、FLUX、Qwen、万相、Grok Imagine 等"
       },
       "routes": null,
       "protocols": [
@@ -72,17 +72,966 @@
           }
         }
       ],
-      "usageProfiles": null,
+      "usageProfiles": [
+        {
+          "models": [
+            "gpt-image-2.5-ext"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "version": {
+              "enum": [
+                "flare",
+                "sunburst"
+              ],
+              "description": {
+                "en": "Model version",
+                "zh": "模型版本"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1k",
+                "2k",
+                "4k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1k": {
+                  "en": "1K"
+                },
+                "2k": {
+                  "en": "2K"
+                },
+                "4k": {
+                  "en": "4K"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "flare · 1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "version": "flare",
+                "resolution": "1k"
+              }
+            },
+            {
+              "label": "flare · 2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "version": "flare",
+                "resolution": "2k"
+              }
+            },
+            {
+              "label": "flare · 4K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "version": "flare",
+                "resolution": "4k"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "gpt-image-2",
+            "gpt-image-2-ext",
+            "gemini-nano-banana-2.1",
+            "gemini-nano-banana-2.1-ext",
+            "gemini-3-pro-image-preview",
+            "nano-banana-pro-ext",
+            "gemini-3-pro-image-preview-official",
+            "nano-banana-pro",
+            "seedream-4.0",
+            "hy-image-v3.5-preview"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1k",
+                "2k",
+                "4k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1k": {
+                  "en": "1K"
+                },
+                "2k": {
+                  "en": "2K"
+                },
+                "4k": {
+                  "en": "4K"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k"
+              }
+            },
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k"
+              }
+            },
+            {
+              "label": "4K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "4k"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "gpt-image-1-official",
+            "gpt-image-1.5-official"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "size": {
+              "enum": [
+                "1:1",
+                "3:2",
+                "2:3"
+              ],
+              "description": {
+                "en": "Image size",
+                "zh": "图片尺寸"
+              }
+            },
+            "quality": {
+              "enum": [
+                "auto",
+                "low",
+                "medium",
+                "high"
+              ],
+              "description": {
+                "en": "Quality tier",
+                "zh": "质量档位"
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1:1 · auto · 1 image",
+              "facts": {
+                "image_count": 1,
+                "size": "1:1",
+                "quality": "auto"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "gemini-3.1-flash-image-preview",
+            "nano-banana-2-ext",
+            "gemini-3.1-flash-image-preview-official",
+            "nano-banana-2"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "0.5k",
+                "1k",
+                "2k",
+                "4k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "0.5k": {
+                  "en": "0.5K"
+                },
+                "1k": {
+                  "en": "1K"
+                },
+                "2k": {
+                  "en": "2K"
+                },
+                "4k": {
+                  "en": "4K"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "0.5K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "0.5k"
+              }
+            },
+            {
+              "label": "1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k"
+              }
+            },
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k"
+              }
+            },
+            {
+              "label": "4K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "4k"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "gemini-3.1-flash-lite-image",
+            "nano-banana-2-lite",
+            "gemini-3.1-flash-lite-image-ext",
+            "nano-banana-2-lite-ext",
+            "gemini-2.5-flash-image-preview",
+            "nano-banana-ext",
+            "gemini-2.5-flash-image-preview-official",
+            "nano-banana",
+            "imagen-4.0-apimart",
+            "flux-kontext-pro",
+            "flux-kontext-max",
+            "wan2.7-image-pro",
+            "wan2.7-image",
+            "grok-imagine-1.5-apimart",
+            "grok-imagine-1.5-ext",
+            "grok-imagine-2.0-ext"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1 image",
+              "facts": {
+                "image_count": 1
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "seedream-4.5"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "2k",
+                "4k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "2k": {
+                  "en": "2K"
+                },
+                "4k": {
+                  "en": "4K"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k"
+              }
+            },
+            {
+              "label": "4K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "4k"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "seedream-5-0-lite"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "2k",
+                "3k",
+                "4k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "2k": {
+                  "en": "2K"
+                },
+                "3k": {
+                  "en": "3K"
+                },
+                "4k": {
+                  "en": "4K"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k"
+              }
+            },
+            {
+              "label": "3K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "3k"
+              }
+            },
+            {
+              "label": "4K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "4k"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "seedream-5-0-pro",
+            "seedream-5-0-flash"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1k",
+                "1.5k",
+                "2k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1k": {
+                  "en": "1K"
+                },
+                "1.5k": {
+                  "en": "1.5K"
+                },
+                "2k": {
+                  "en": "2K"
+                }
+              }
+            },
+            "reference_images": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Reference image unit price",
+                "zh": "参考图单价"
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k",
+                "reference_images": 0
+              }
+            },
+            {
+              "label": "1.5K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1.5k",
+                "reference_images": 0
+              }
+            },
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k",
+                "reference_images": 0
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "flux-2-pro",
+            "flux-2-max",
+            "flux-2-flex"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1mp",
+                "2mp",
+                "3mp",
+                "4mp"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1mp": {
+                  "en": "1MP"
+                },
+                "2mp": {
+                  "en": "2MP"
+                },
+                "3mp": {
+                  "en": "3MP"
+                },
+                "4mp": {
+                  "en": "4MP"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1MP · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1mp"
+              }
+            },
+            {
+              "label": "2MP · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2mp"
+              }
+            },
+            {
+              "label": "3MP · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "3mp"
+              }
+            },
+            {
+              "label": "4MP · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "4mp"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "flux-3-image",
+            "flux-3-image-klein"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "768sq",
+                "1k",
+                "1.5k",
+                "2k",
+                "4k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "768sq": {
+                  "en": "768sq"
+                },
+                "1k": {
+                  "en": "1K"
+                },
+                "1.5k": {
+                  "en": "1.5K"
+                },
+                "2k": {
+                  "en": "2K"
+                },
+                "4k": {
+                  "en": "4K"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "768sq · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "768sq"
+              }
+            },
+            {
+              "label": "1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k"
+              }
+            },
+            {
+              "label": "1.5K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1.5k"
+              }
+            },
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k"
+              }
+            },
+            {
+              "label": "4K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "4k"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "mai-image-2.6",
+            "mai-image-2.6-flash",
+            "qwen-image-2.0",
+            "qwen-image-2.0-pro",
+            "qwen-image-3.0",
+            "qwen-image-3.0-pro"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1k",
+                "2k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1k": {
+                  "en": "1K"
+                },
+                "2k": {
+                  "en": "2K"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k"
+              }
+            },
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "z-image-turbo"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1k",
+                "2k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1k": {
+                  "en": "1K"
+                },
+                "2k": {
+                  "en": "2K"
+                }
+              }
+            },
+            "prompt_extend": {
+              "type": "boolean",
+              "description": {
+                "en": "Prompt rewriting enabled",
+                "zh": "开启智能改写"
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k",
+                "prompt_extend": false
+              }
+            },
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k",
+                "prompt_extend": false
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "grok-imagine-image",
+            "grok-imagine-image-quality"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1k",
+                "2k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1k": {
+                  "en": "1K"
+                },
+                "2k": {
+                  "en": "2K"
+                }
+              }
+            },
+            "reference_images": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Reference image unit price",
+                "zh": "参考图单价"
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k",
+                "reference_images": 0
+              }
+            },
+            {
+              "label": "2K · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k",
+                "reference_images": 0
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "grok-imagine-image-2.0"
+          ],
+          "schema": {
+            "image_count": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Generated image unit price",
+                "zh": "生成图片单价"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "1k",
+                "2k"
+              ],
+              "description": {
+                "en": "Resolution tier",
+                "zh": "分辨率档位"
+              },
+              "enumLabels": {
+                "1k": {
+                  "en": "1K"
+                },
+                "2k": {
+                  "en": "2K"
+                }
+              }
+            },
+            "quality": {
+              "enum": [
+                "medium",
+                "low"
+              ],
+              "description": {
+                "en": "Quality tier",
+                "zh": "质量档位"
+              }
+            },
+            "reference_images": {
+              "type": "number",
+              "unit": "count",
+              "description": {
+                "en": "Reference image unit price",
+                "zh": "参考图单价"
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "1K · medium · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "1k",
+                "quality": "medium",
+                "reference_images": 0
+              }
+            },
+            {
+              "label": "2K · medium · 1 image",
+              "facts": {
+                "image_count": 1,
+                "resolution": "2k",
+                "quality": "medium",
+                "reference_images": 0
+              }
+            }
+          ]
+        }
+      ],
       "models": [
         "gpt-image-2.5-flare",
-        "gpt-image-2.5-sunburst"
+        "gpt-image-2.5-sunburst",
+        "gpt-image-2.5-ext",
+        "gpt-image-2",
+        "gpt-image-2-ext",
+        "gpt-image-2-official",
+        "gpt-image-1-official",
+        "gpt-image-1.5-official",
+        "gemini-nano-banana-2.1",
+        "gemini-nano-banana-2.1-ext",
+        "gemini-3.1-flash-image-preview",
+        "nano-banana-2-ext",
+        "gemini-3.1-flash-image-preview-official",
+        "nano-banana-2",
+        "gemini-3.1-flash-lite-image",
+        "nano-banana-2-lite",
+        "gemini-3.1-flash-lite-image-ext",
+        "nano-banana-2-lite-ext",
+        "gemini-3-pro-image-preview",
+        "nano-banana-pro-ext",
+        "gemini-3-pro-image-preview-official",
+        "nano-banana-pro",
+        "gemini-2.5-flash-image-preview",
+        "nano-banana-ext",
+        "gemini-2.5-flash-image-preview-official",
+        "nano-banana",
+        "imagen-4.0-apimart",
+        "seedream-4.0",
+        "seedream-4.5",
+        "seedream-5-0-lite",
+        "seedream-5-0-pro",
+        "seedream-5-0-flash",
+        "flux-kontext-pro",
+        "flux-kontext-max",
+        "flux-2-pro",
+        "flux-2-max",
+        "flux-2-flex",
+        "flux-3-image",
+        "flux-3-image-klein",
+        "hy-image-v3.5-preview",
+        "mai-image-2.6",
+        "mai-image-2.6-flash",
+        "qwen-image-2.0",
+        "qwen-image-2.0-pro",
+        "qwen-image-3.0",
+        "qwen-image-3.0-pro",
+        "z-image-turbo",
+        "wan2.7-image-pro",
+        "wan2.7-image",
+        "grok-imagine-1.5-apimart",
+        "grok-imagine-1.5-ext",
+        "grok-imagine-image",
+        "grok-imagine-image-quality",
+        "grok-imagine-image-2.0",
+        "grok-imagine-2.0-ext"
       ],
-      "latest": "1.0.0",
+      "latest": "1.1.0",
       "versions": [
         {
           "version": "1.0.0",
           "path": "plugins/tasks/apimart/1.0.0/plugin.js",
           "sha256": "764de18cae44ec650a9718895be04914f84c739694a152f4f35914b65a5bb47a",
+          "minApiVersion": 1,
+          "kind": "task",
+          "allowedHosts": [
+            "upload.apimart.ai"
+          ],
+          "baseUrl": "https://api.apimart.ai",
+          "auth": "api_key"
+        },
+        {
+          "version": "1.1.0",
+          "path": "plugins/tasks/apimart/1.1.0/plugin.js",
+          "sha256": "f5bdd1fa397a7fbb212e31add96f23024440145dc5c846c2b0beb72abb1ae9db",
           "minApiVersion": 1,
           "kind": "task",
           "allowedHosts": [
